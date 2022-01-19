@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { StreamChat } from "stream-chat";
+import "./App.css";
 
-function App() {
+function MessageList(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ul className="message">
+      {props.messages.map((message) => {
+        return (
+          <li>
+            <div className="green-text">{message.text}</div>
+          </li>
+        );
+      })}
+    </ul>
   );
+}
+
+function SendMessageForm(props) {
+  return (
+    <form>
+      <input className="green-text" />
+    </form>
+  );
+}
+
+const dummyMessages = [
+  { text: "Wake up, Neo..." },
+  { text: "The Matrix has you..." },
+  { text: "Follow the white rabbit." },
+  { text: "Knock, knock, Neo." },
+];
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      messages: dummyMessages,
+      text: "",
+    };
+  }
+
+  render() {
+    return (
+      <main>
+        <MessageList messages={this.state.messages} />
+        <SendMessageForm />
+      </main>
+    );
+  }
 }
 
 export default App;
